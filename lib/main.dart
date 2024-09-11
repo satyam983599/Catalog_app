@@ -1,21 +1,35 @@
+import 'package:demo_pro/core/store.dart';
+import 'package:demo_pro/pages/cart_page.dart';
+import 'package:demo_pro/pages/home_page.dart';
+import 'package:demo_pro/pages/login_page.dart';
+import 'package:demo_pro/utils/routes.dart';
+import 'package:demo_pro/widgets/themes.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp( VxState( store:MyStore(), child: MyApp()));
 }
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Material(
-        child: Center(
-          child: Container(
-            child: Text("hii"),
-          ),
-        ),
-      ),
+
+      themeMode: ThemeMode.system,
+      theme:MyTheme.lightTheme(context),
+      debugShowCheckedModeBanner: false,
+      darkTheme:MyTheme.darkTheme(context),
+      initialRoute: MyRoutes.homeRoute ,
+      routes: {
+        "/": (context)=>LoginPage(),
+        MyRoutes.homeRoute:(context)=>HomePage(),
+        MyRoutes.loginRoute:(context)=> LoginPage(),
+        MyRoutes.cartRoute:(context)=> CartPage(),
+      },
     );
 
   }
